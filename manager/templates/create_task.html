@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+            <div class="row">
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Create Task</h4>
+                    <p class="card-description"></p>
+                    <form class="forms-sample" action="{% url 'task' %}" method = "POST">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Intern</label>
+                        <div class="col-sm-9">
+
+                          <select class="form-control" id="exampleInputEmail2" style="width:100%" name="intern">
+                            {% for temp in interns %}
+                            <option class="js-example-basic-single" value="{{temp.username}}" SELECTED>{{temp.username}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputdeadline" class="col-sm-3 col-form-label">Deadline</label>
+                        <div class="col-sm-9">
+                          <input type="datetime-local" class="form-control" id="exampleInputdeadline" placeholder="Enter deadline" name="deadline">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputname" class="col-sm-3 col-form-label">Task Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputname" placeholder="Type Task Name" name="taskname">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputdesc" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" id="exampleInputdesc" placeholder="Insert Details of task" name="desc">
+                        </div>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-dark">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- content-wrapper ends -->
+{% endblock %}

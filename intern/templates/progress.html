@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+            <div class="row">
+              <div class="col-md-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Progress</h4>
+                    <p class="card-description"></p>
+                    <form class="forms-sample" action="{% url 'add-progress' %}" method = "POST">
+                      {% csrf_token %}
+                      <div class="form-group row">
+                        <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Task</label>
+                        <div class="col-sm-9">
+
+                          <select class="form-control" id="exampleInputEmail2" style="width:100%" name="task">
+                            {% for tasks in tasks %}
+                            <option class="js-example-basic-single" value="{{tasks.task_id}}" SELECTED>{{tasks.task_name}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+
+                      </div>
+                      <div class="form-group row">
+                        <label for="exampleInputstatus" class="col-sm-3 col-form-label">Status</label>
+                        <div class="col-sm-9">
+
+                          <select class="form-control" id="exampleInputstatus" style="width:100%" name="value">
+                            {% for data in status %}
+                            <option class="js-example-basic-single" value="{{data}}" SELECTED>{{data}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+
+                      <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                      <button class="btn btn-dark">Cancel</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <!-- content-wrapper ends -->
+{% endblock %}

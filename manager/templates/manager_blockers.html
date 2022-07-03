@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Blockers Table</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>id</th>
+                              <th>Task</th>
+                            <th>Intern</th>
+                            <th>Label</th>
+                              <th>Query</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+
+                            {% for data in data %}
+                            {% if request.user.user_id == data.manager_id.user_id %}
+                            <td>{{data.blocker_id}}</td>
+                            <td>{{data.blocker_task_id}}</td>
+                              <td>{{data.intern_id}}</td>
+                            <td>{{data.label}}</td>
+                              <td>{{data.query}}</td>
+                            {% endif %}
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}
