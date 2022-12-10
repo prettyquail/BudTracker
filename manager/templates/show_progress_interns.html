@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Progress Report</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Task</th>
+                            <th>Intern</th>
+                            <th>Status</th>
+                            <th>Date Updated</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in data %}
+                          <tr>
+                            <td>{{data.progress_task_id}}</td>
+                            <td>{{data.intern_id}}</td>
+                            <td>{{data.status}}</td>
+                            <td>{{data.completion_date}}</td>
+                          </tr>
+                          {% endfor %}
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}

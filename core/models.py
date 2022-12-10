@@ -73,17 +73,24 @@ class Blocker(models.Model):
     label = models.CharField(max_length=66)
     query = models.TextField(blank=False)
 
+    def __str__(self):
+        print(self.blocker_id,self.intern_id)
+        return str(self.intern_id)+"-"+str(self.blocker_id)
 
 class Blocker_Answer(models.Model):
     blocker = models.OneToOneField(Blocker,on_delete=models.CASCADE,null=True)
     answer = models.TextField()
 
+from datetime import datetime
 
 class Progress(models.Model):
     progress_id = models.AutoField(primary_key = True)
     progress_task_id = models.ForeignKey(Task,on_delete=models.CASCADE,null=False,related_name="progress_task_id")
     intern_id = models.ForeignKey(Account,on_delete=models.CASCADE,null=False,related_name="intern")
-    points = models.FloatField(blank=True,default=0.00)
     status = models.CharField(("Status"), max_length=50, choices=Status.choices, default=Status.PENDING)
+    completion_date = models.DateTimeField(auto_now_add=False,null=False,default=datetime.now())
 
-
+class Points_Assign(models.Model):
+    manager_id = models.ForeignKey(Account, on_delete=models.CASCADE, null=False, related_name="managers")
+    intern_id = models.ForeignKey(Account, on_delete=models.CASCADE, null=False, related_name="interns")
+    points_assigned = models.FloatField(blank=True, default=0.00)

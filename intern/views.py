@@ -2,12 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from core.models import Task, Account, Progress, Status, Blocker, Blocker_Answer
 from django.contrib import messages
+from datetime import datetime
 
 # Create your views here.
 @login_required(login_url = "login")
 def intern_home(request):
     data = Progress.objects.filter(intern_id=request.user.user_id)
-    # status = Progress.objects.filter(intern_id=request.user.user_id)
+    if data is None:
+        messages.error(request,"No Tasks Assigned")
     return render(request,"intern_home.html",context={"data":data})
 
 def progress_info(request):
@@ -18,7 +20,7 @@ def progress_info(request):
             li.append(i[0])
         return render(request,"progress.html",context={"tasks":tasks,"status":li})
     else:
-        print("User not eligible")
+        messages.error(request, "User not eligible")
     return render(request,"progress.html")
 
 @login_required(login_url = "login")
@@ -27,16 +29,17 @@ def update_progress(request):
         task = Task.objects.get(task_id=request.POST.get("task"))
         intern_id = Account.objects.get(username=request.user.username)
         status = request.POST.get("value")
+        completion_date = datetime.now()
         data = Progress.objects.filter(progress_task_id_id=task.task_id)
         if data and intern_id and status:
             data[0].status = status
+            data[0].completion_date = completion_date
             data[0].save()
-            # Progress.objects.create(progress_task_id=task, intern_id=intern_id,status=status)
             messages.success(request, "Progress Updated Successfully")
             return redirect("intern-home")
         else:
-            Progress.objects.create(progress_task_id=task, intern_id=intern_id, status=status)
-            print("Please enter info")
+            Progress.objects.create(progress_task_id=task, intern_id=intern_id, status=status,completion_date=completion_date)
+            messages.success(request,"Progress Created Successfully")
     return render(request,"progress.html")
 
 
@@ -62,7 +65,7 @@ def addblocker(request):
         messages.success(request, "Blocker Added Successfully")
         return redirect("intern-home")
     else:
-        print("Please enter info")
+        messages.success(request, "Please enter complete information")
     return render(request, "add_blocker.html")
 
 @login_required(login_url='login')

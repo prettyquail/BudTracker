@@ -15,9 +15,9 @@
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Create Task</h4>
+                    <h4 class="card-title">Assign Points</h4>
                     <p class="card-description"></p>
-                    <form class="forms-sample" action="{% url 'task' %}" method = "POST">
+                    <form class="forms-sample" action="{% url 'add-points' %}" method = "POST">
                       {% csrf_token %}
                       <div class="form-group row">
                         <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Intern</label>
@@ -29,29 +29,18 @@
                             {% endfor %}
                           </select>
                         </div>
+                      </div>
 
-                      </div>
                       <div class="form-group row">
-                        <label for="exampleInputdeadline" class="col-sm-3 col-form-label">Deadline</label>
+                        <label for="exampleInputpoints" class="col-sm-3 col-form-label">Points</label>
                         <div class="col-sm-9">
-                          <input type="datetime-local" class="form-control" id="exampleInputdeadline" placeholder="Enter deadline" name="deadline">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputname" class="col-sm-3 col-form-label">Task Name</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="exampleInputname" placeholder="Type Task Name" name="taskname">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="exampleInputdesc" class="col-sm-3 col-form-label">Description</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="exampleInputdesc" placeholder="Insert Details of task" name="desc">
+                          <input type="decimal" class="form-control" id="exampleInputpoints" placeholder="Type Points" name="points">
                         </div>
                       </div>
 
                       <button type="submit" class="btn btn-primary mr-2">Submit</button>
                       <button class="btn btn-dark">Cancel</button>
+
                     </form>
                   </div>
                 </div>
